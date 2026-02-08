@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Happy Propose Day ❤️</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+body{
+    font-family: 'Segoe UI', sans-serif;
+    text-align:center;
+    overflow:hidden;
+    background: #a2d2ff; /* Light blue to match the sky in your image */
+}
+
+.container{
+    position:relative;
+    z-index:2;
+    height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+}
+
+/* Updated to your uploaded image */
+.bg-couple{
+    position:fixed;
+    inset:0;
+    /* Ensure the filename matches exactly what you save the image as */
+    background: url('couple.jpg') center/cover no-repeat; 
+    z-index:0;
+    filter: brightness(0.8);
+}
+
+.heart{
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: #ff4d6d;
+    transform: rotate(45deg);
+    animation: floatUp linear infinite;
+}
+.heart::before,
+.heart::after{
+    content:'';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: #ff4d6d;
+    border-radius: 50%;
+}
+.heart::before{ top:-10px; left:0; }
+.heart::after{ left:10px; top:0; }
+
+@keyframes floatUp{
+    0%{transform: translateY(0) rotate(45deg); opacity:1;}
+    100%{transform: translateY(-800px) rotate(45deg); opacity:0;}
+}
+
+.card{
+    position: relative;
+    background: rgba(255, 255, 255, 0.15); /* Lower opacity for better glass effect */
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius:20px;
+    padding:25px;
+    max-width:420px;
+    width:100%;
+    z-index:2;
+    animation:fadeIn 1.5s ease-out;
+    color: #fff;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+@keyframes fadeIn{
+    from{opacity:0; transform:translateY(20px);}
+    to{opacity:1; transform:translateY(0);}
+}
+
+h1{margin:10px 0; font-size: 2rem;}
+p{font-size:1.1rem; line-height:1.6; font-weight: 500;}
+
+button{
+    background:#ff4d6d;
+    border:none;
+    padding:12px 25px;
+    border-radius:25px;
+    color:#fff;
+    font-size:1rem;
+    font-weight: bold;
+    cursor:pointer;
+    margin-top:15px;
+    box-shadow:0 6px 15px rgba(0,0,0,0.2);
+    transition: 0.3s;
+}
+
+button:hover{transform:scale(1.05); background: #ff758f;}
+.options button{width:100%; margin:8px 0;}
+.hidden{display:none;}
+.final{animation:glow 2s infinite alternate;}
+
+@keyframes glow{
+    from{box-shadow:0 0 10px rgba(255,255,255,0.5);}
+    to{box-shadow:0 0 25px #ff4d6d;}
+}
+</style>
+</head>
+
+<body>
+<div class="bg-couple"></div>
+
+<audio id="bgSong" loop>
+    <source src="song.mp3" type="audio/mpeg">
+</audio>
+
+<div class="container">
+
+<div class="card" id="step1">
+    <h1>Hey… 🌸</h1>
+    <p>
+        Shayad hum alag ho gaye…<br>
+        par meri feelings kabhi alag nahi hui.<br>
+        Aaj sirf ek chhota sa sawal hai…
+    </p>
+    <button onclick="next(2)">Tap to continue ❤️</button>
+</div>
+
+<div class="card hidden" id="step2">
+    <h1>Task 1 💭</h1>
+    <p>
+        Jab tum muskurati ho…<br>
+        kya duniya thodi si aur khoobsurat lagti hai?
+    </p>
+    <div class="options">
+        <button onclick="right()">Haan ❤️</button>
+        <button onclick="right()">Bilkul 😌</button>
+    </div>
+</div>
+
+<div class="card hidden" id="step3">
+    <h1>Task 2 💖</h1>
+    <p>
+        Agar waqt peeche ja sakta ho…<br>
+        kya hum ek aur chance deserve karte hain?
+    </p>
+    <div class="options">
+        <button onclick="right()">Yes 💞</button>
+        <button onclick="right()">Of course 🥺</button>
+    </div>
+</div>
+
+<div class="card hidden" id="step4">
+    <h1>Task 3 🌹</h1>
+    <p>
+        Sach batao…<br>
+        kahin na kahin tumhe bhi meri yaad aati hai?
+    </p>
+    <div class="options">
+        <button onclick="right()">Hamesha ❤️</button>
+        <button onclick="right()">Kabhi kabhi 😔</button>
+    </div>
+</div>
+
+<div class="card hidden final" id="step5">
+    <h1>Happy Propose Day 💍</h1>
+    <p>
+        Main aaj bhi wahi hoon…<br>
+        jo tumhari ek muskaan ke liye<br>
+        poori duniya se lad sakta hai.<br><br>
+        Kya tum phir se meri zindagi ka hissa banogi?
+    </p>
+    <button onclick="alert('❤️ She said YES ❤️')">YES 💖</button>
+</div>
+
+</div>
+
+<script>
+let current = 1;
+const song = document.getElementById("bgSong");
+
+function createHearts(){
+    const heart = document.createElement('div');
+    heart.className = 'heart';
+    heart.style.left = Math.random() * window.innerWidth + 'px';
+    heart.style.animationDuration = (3 + Math.random() * 3) + 's';
+    const size = (10 + Math.random() * 15) + 'px';
+    heart.style.width = heart.style.height = size;
+    document.body.appendChild(heart);
+    setTimeout(()=>heart.remove(), 6000);
+}
+setInterval(createHearts, 400);
+
+function next(step){
+    document.getElementById("step"+current).classList.add("hidden");
+    document.getElementById("step"+step).classList.remove("hidden");
+    current = step;
+    song.play().catch(()=>{
+        console.log("Audio needs user interaction first");
+    });
+}
+
+function right(){next(current+1);}
+</script>
+
+</body>
+</html>
